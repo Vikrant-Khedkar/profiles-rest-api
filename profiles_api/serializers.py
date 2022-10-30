@@ -1,3 +1,4 @@
+from dataclasses import field
 import imp
 from unicodedata import name
 from unittest.util import _MAX_LENGTH
@@ -30,3 +31,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
             password= validated_data['password']
         )
         return user
+
+class ProfileFeedItemSerializer(serializers.ModelSerializer):
+    """Serializes profile feed items"""
+
+    class Meta:
+        model = models.ProfileFeedItem
+        field = ('id','user_profile','status_text','created_on')
+        extra_kwarg ={'user_profile':{'read_only': True}}
+          
